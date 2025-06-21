@@ -53,6 +53,43 @@ RSpec.describe Note, type: :model do
     end
   end
 
+  describe 'scopes' do
+    let!(:active_note) { create(:note, archived: false) }
+    let!(:archived_note) { create(:note, :archived) }
+
+    it 'returns only active notes' do
+      expect(Note.active).to include(active_note)
+      expect(Note.active).not_to include(archived_note)
+    end
+
+    it 'returns only archived notes' do
+      expect(Note.archived).to include(archived_note)
+      expect(Note.archived).not_to include(active_note)
+    end
+  end
+
+  describe 'filter_by_archived_status' do
+    let!(:active_note) { create(:note, archived: false) }
+    let!(:archived_note) { create(:note, :archived) }
+
+    it 'returns active notes' do
+      expect(Note.filter_by_archived_status('false')).to include(active_note)
+      expect(Note.filter_by_archived_status('false')).not_to include(archived_note)
+    end
+
+    it 'returns archived notes' do
+      expect(Note.filter_by_archived_status('true')).to include(archived_note)
+      expect(Note.filter_by_archived_status('true')).not_to include(active_note)
+    end
+
+    context 'when status is not provided' do
+      it 'returns active notes' do
+        expect(Note.filter_by_archived_status(nil)).to include(active_note)
+        expect(Note.filter_by_archived_status(nil)).not_to include(archived_note)
+      end
+    end
+  end
+
   describe 'factory' do
     it 'creates a valid note' do
       note = build(:note)
