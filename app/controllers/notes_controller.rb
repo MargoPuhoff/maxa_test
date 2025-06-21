@@ -6,7 +6,7 @@ class NotesController < ApplicationController
   # GET /notes
   def index
     @notes = Note.filter_by_archived_status(params[:archived])
-    render json: @notes
+    render json: @notes, each_serializer: NoteSerializer
   end
 
   # GET /notes/1

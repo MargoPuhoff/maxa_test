@@ -19,6 +19,9 @@ RSpec.describe NotesController, type: :controller do
         expect(notes).to be_an(Array)
         expect(notes.length).to eq(1)
         expect(notes.first['id']).to eq(active_note.id)
+        expect(notes.first['title']).to eq(active_note.title)
+        expect(notes.first['body']).to eq(active_note.body)
+        expect(notes.first['updated_at']).to be_present
       end
     end
 
@@ -77,6 +80,8 @@ RSpec.describe NotesController, type: :controller do
         note_data = JSON.parse(response.body)
         expect(note_data['id']).to eq(note.id)
         expect(note_data['title']).to eq(note.title)
+        expect(note_data['body']).to eq(note.body)
+        expect(note_data['updated_at']).to be_present
       end
     end
 
