@@ -1,24 +1,66 @@
-# README
+# Maxa Test - API для управления заметками
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Технологии
 
-Things you may want to cover:
+- **Ruby** 3.x
+- **Rails** 7.2.2
+- **SQLite3** (база данных)
+- **RSpec** (тестирование)
+- **Factory Bot** (фабрики для тестов)
+- **Active Model Serializers** (сериализация JSON)
 
-* Ruby version
+## Требования
 
-* System dependencies
+- Ruby 3.x или выше
+- Bundler
+- SQLite3
 
-* Configuration
+## Установка и запуск
 
-* Database creation
+### 1. Клонирование проекта
 
-* Database initialization
+git clone <URL_РЕПОЗИТОРИЯ>
+cd maxa_test
 
-* How to run the test suite
+### 2. Установка зависимостей
 
-* Services (job queues, cache servers, search engines, etc.)
+bundle install
 
-* Deployment instructions
+### 3. Настройка базы данных
 
-* ...
+rails db:create
+rails db:migrate
+
+
+### 4. Запуск сервера
+
+rails server
+
+## API Endpoints
+
+- `GET /notes` - Получить список всех заметок
+- `GET /notes/:id` - Получить конкретную заметку
+- `POST /notes` - Создать новую заметку
+- `PUT /notes/:id` - Обновить заметку
+- `DELETE /notes/:id` - Удалить заметку
+
+### Параметры для создания/обновления заметки
+
+{
+  "title": "Заголовок заметки",
+  "content": "Содержание заметки",
+  "archived": false
+}
+
+## Тестирование
+
+### Запуск тестов
+
+bundle exec rspec - запустит все тесты
+
+### Структура тестов
+
+- `spec/models/` - тесты моделей
+- `spec/controllers/` - тесты контроллеров
+- `spec/requests/` - интеграционные тесты API
+- `spec/factories/` - фабрики для тестовых данных
